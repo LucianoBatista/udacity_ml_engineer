@@ -67,3 +67,18 @@ Arbitrary variable names in general functions can actually make the code more re
 ## Try to use fewer than three arguments per function
 
 Try to use no more than three arguments when possible. This is not a hard rule and there are times it is more appropriate to use many parameters. But in many cases, it's more effective to use fewer arguments. Remember we are modularizing to simplify our code and make it more efficient to work with. If your function has a lot of parameters, you may want to rethink how you are splitting this up.
+
+# Efficient Code
+
+Knowing how to write code that *runs efficiently* is another essential skill in software development. Optimizing code to be more efficient can mean making it:
+
+- *Execute faster*
+- *Take up less space in memory/storage*
+
+The project you're working on would determine which of these is more important to optimize for your company or product. When we are performing lots of different transformations on large amounts of data, this can make orders of magnitudes of difference in performance.
+
+Sets can be very efficient when use with lots of data. One way to look for intersection between lists:
+
+- `list(set(list1).intersection(list2))`
+- `set(list1) - set(list2)`
+
