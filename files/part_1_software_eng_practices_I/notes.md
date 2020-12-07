@@ -82,3 +82,37 @@ Sets can be very efficient when use with lots of data. One way to look for inter
 - `list(set(list1).intersection(list2))`
 - `set(list1) - set(list2)`
 
+# Documentation
+
+Additional text or illustrated information that comes with or is embedded in the code of software.
+
+## Types of documentation
+
+1. **Line level**: normaly used
+1. **Function or module level**: called *docstring*
+
+Normaly assume this patterns:
+*description*
+"""
+My description about the function
+
+*Args*
+Args:
+every argument to plug in the function
+
+*Returns*
+Returns:
+what your function will return
+"""
+
+1. **Project level (readme)**: 
+
+Project documentation is *essential for getting others to understand why and how your code is relevant to them*, whether they are potentials users of your project or developers who may contribute to your code. A great first step in project documentation is your README file. It will often be the first interaction most users will have with your project.
+
+Whether it's an application or a package, *your project should absolutely come with a README file*. **At a minimum, this should explain what it does, list its dependencies, and provide sufficiently detailed instructions on how to use it.** You want to make it as simple as possible for others to understand the purpose of your project, and quickly get something working.
+
+Translating all your ideas and thoughts formally on paper can be a little difficult, but you'll get better over time and makes a significant difference in helping others realize the value of your project. Writing this documentation can also help you improve the design of your code, as you're forced to think through your design decisions more thoroughly. This also allows future contributors to know how to follow your original intentions.
+
+Udacity have a 1hour course on how to write readmes files: https://classroom.udacity.com/courses/ud777
+
+
