@@ -104,12 +104,24 @@ that will upload our data
 **session.upload_data**
 
 ```
+# saving the files into the directory created
+X_test.to_csv(os.path.join(data_dir, 'test.csv'), header=False, index=False)
+
+pd.concat([Y_val, X_val], axis=1).to_csv(os.path.join(data_dir, 'validation.csv'), header=False, index=False)
+pd.concat([Y_train, X_train], axis=1).to_csv(os.path.join(data_dir, 'train.csv'), header=False, index=False)
+
+
+
 prefix = 'project-mlalgo-studos'
 
 test_location = session.upload_data(os.path.join(data_dir, 'test.csv'), key_prefix=prefix)
 train_location = session.upload_data(os.path.join(data_dir, 'train.csv'), key_prefix=prefix)
 val_location = session.upload_data(os.path.join(data_dir, 'validation.csv'), key_prefix=prefix)
+```
 
+
+**4. Modeling: Train using xgboost built in algo from sagemaker**
 
 ```
 
+```
