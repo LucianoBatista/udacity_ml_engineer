@@ -38,3 +38,78 @@ The integration of the model with the production enviroment existent. And use th
 1. What are different cloud computing platforms we might use to deploy our machine learning models?
 - AWS, GCP or Azure
 
+# SageMaker
+
+## What is AWS Sagemaker?
+
+AWS (or Amazon) SageMaker is a fully managed service that provides the ability to build, train, tune, deploy, and manage large-scale machine learning (ML) models quickly.
+
+### Tools from Sagemaker
+
+- Ground Truth: To label the jobs, datasets and workforces
+- Notebook: To create jupyter notebook instances, configure the lifecycle of the notebooks, and attache git repos
+- Training: To choose an ML algo, define the trainig jobs, and tune the hyperparameter
+- Inference: To compile and configure the trained models, and endpoints for deployments
+
+### Sagemaker Instances
+
+Sagemaker instances are the dedicated VMs that are optimized to fit different machine learning use cases. The supported instance types, names and pricing in SageMaker are different than that of EC2.
+
+The type of sagemaker instances that are supported varies with aws regions and availability zones.
+
+- **Instances Used here:** ml.t2.medium, ml.m4.xlarge, ml.p2.xlarge (cpu, gpu, for the project)
+
+## Quotes
+
+Service quotes or limits, are the maximum number of service resources or operations for your AWS account.
+
+There are three ways to view your quotas, as mentioned here:
+- Service Endpoints and Quotas,
+- Service Quotas console,
+- AWS CLI commands - list-service-quotas and list-aws-default-service-quotas
+
+We can ask for a new quote limit, Udacity tutorial of how to do that! **[SAVA_AFTER]**
+
+## Sagemaker workflow
+
+Steps needed on SageMaker workflow
+
+**1. set up the notebook**
+
+```
+import sagemaker
+from sagemaker import get_execution_role # info about IAM role
+from sagemaker.amazon.amazon_estimator import get_image_uri # to choose the docker container
+from sagemaker.predictor import csv_serializer # serializer to csv files
+
+session = sagemaker.Session() # information about the sassion
+
+role = get_execution_role()
+
+```
+
+2. Preparação e divisão de dados em treino e teste é igual ao que já fazemos
+
+**3. Uploading the data files to S3**
+
+That will be needed by the training job later on.
+
+```
+data_dir = '../data/project_folder'
+if not os.path.exists(data_dir):
+    os.makedirs(data_dir)
+```
+
+that will upload our data
+**session.upload_data**
+
+```
+prefix = 'project-mlalgo-studos'
+
+test_location = session.upload_data(os.path.join(data_dir, 'test.csv'), key_prefix=prefix)
+train_location = session.upload_data(os.path.join(data_dir, 'train.csv'), key_prefix=prefix)
+val_location = session.upload_data(os.path.join(data_dir, 'validation.csv'), key_prefix=prefix)
+
+
+```
+
