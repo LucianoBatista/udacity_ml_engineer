@@ -123,5 +123,35 @@ val_location = session.upload_data(os.path.join(data_dir, 'validation.csv'), key
 **4. Modeling: Train using xgboost built in algo from sagemaker**
 
 ```
+container = get_image_uri(session.boto_region_name, 'xgboost')
+
+xgb = sagemaker.estimator.Estimator(container,
+                                    role,
+                                    train_instance_count=1,
+                                    train_instance_type='ml.m4.xlarge',
+                                    output_path='s3://{}/{}/output'.format(session.default_bucket(), prefix),
+                                    sagemaker_session=session)
+
+xgb.set_hyperparameters(max_depth ...) # a lot of hyperparams
+
+
+s3_input_train = sagemaker.s3_input(s3_data=train_location, content_type='csv')
+s3_input_validation = sagemaker.s3_input(s3_data=val_location, content_type='csv')
+
+xgb.fit({'train': s3_input_train, 'validation': s3_input_validation})
 
 ```
+
+**Test**
+
+```
+xgb_transformer = xgb.transformer(instance_count = 1, instance_type = 'ml.m4.xlarge')
+
+xgb_transformer.transform(test_location, content_type='text/csv', split_type='Line')
+xgb_transformer.wait()
+
+```
+
+!aws s3 cp --recursive $xgb_transformer.output_path $data_dir
+
+The last part is to analyse the predictions, ordinary python code.
