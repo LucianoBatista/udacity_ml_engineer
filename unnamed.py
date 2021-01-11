@@ -47,4 +47,3 @@ class Blouse(Clothing):
     def triple_price(self):
         return 3 * self.price
 
-

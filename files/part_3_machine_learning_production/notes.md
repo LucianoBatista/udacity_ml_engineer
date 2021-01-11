@@ -155,3 +155,14 @@ xgb_transformer.wait()
 !aws s3 cp --recursive $xgb_transformer.output_path $data_dir
 
 The last part is to analyse the predictions, ordinary python code.
+
+''running localy''
+To get this to work in august 2020, I had to:
+- install the AWS CLI and the python SDK
+- make a requirements.txt file, containing 'keras==2.3.1'
+- because I was not running in a notebook, but just a python file on command line, don't make the same mistake I did and call your file 'sagemaker.py'. It will mess up your imports
+- change the estimator code a little: there are no more 'train_*' parameters, just 'instance_type' and 'instance_count'; and there is no such thing as 'script_mode'
+- I also added a "source_dir='.'" parameter so the requirements file would be found
+
+What I notice: even though all of this should run locally, files still get uploaded to amazon S3, and I have issues saving the model at the very end (could be my local install)
+ 
